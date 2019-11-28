@@ -1,0 +1,22 @@
+@mixin content {
+    width: 75%;
+    max-width: 75rem;
+}
+
+@mixin content-container {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin card {
+    border-radius: .5em;
+    will-change: transform;
+    transition: box-shadow .4s ease-in-out, transform .4s ease-in-out;
+    box-sizing: border-box;
+    box-shadow: 0em .25em 1em 0em rgba(0,0,0,0.25);
+}
+
+@mixin card-hover {
+    box-shadow: 0em .25em 1.25em 0em rgba(0,0,0,0.5);
+    transform: translateY(-.15em) scale(1.01);
+}
