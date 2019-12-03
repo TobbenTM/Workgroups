@@ -3,7 +3,19 @@
     <h2>Summary</h2>
     <ul>
       <li>
-        Time: {{ event.startsAt }}
+        Time: <strong>{{ event.startsAt | formatDate }} - {{ event.endsAt | formatDate }}</strong>
+      </li>
+      <li>
+        Hosted by: <strong>
+        <router-link :to="{ name: 'group', params: { id: event.hostedBy.id }}">
+          {{ event.hostedBy.name }}
+        </router-link></strong>
+      </li>
+      <li>
+        Location: <strong>{{ event.location }}</strong>
+      </li>
+      <li v-if="event.maxNumberOfAttendees">
+        Max number of attendees: <strong>{{ event.maxNumberOfAttendees }}</strong>
       </li>
     </ul>
   </div>
@@ -15,6 +27,11 @@ export default {
     event: {
       type: Object,
       required: true,
+    },
+  },
+  filters: {
+    formatDate(date) {
+      return date.toLocaleString();
     },
   },
 };

@@ -11,6 +11,17 @@
     </div>
     <div class="event__content">
       <event-actions :event="event" class="event__content__actions"/>
+      <div class="event__content__description">
+        {{ event.description }}
+      </div>
+      <div class="event__content__agenda">
+        <h2>Agenda</h2>
+      </div>
+      <div class="event__content__vendors">
+        <h2>Foodora Vendors</h2>
+        <foodora-vendors :vendors="event.foodoraVendors"/>
+      </div>
+      <button style="margin: auto; margin-top: 3em;" @click="loadEvent">Refresh</button>
     </div>
   </div>
 </template>
@@ -20,6 +31,7 @@ import AutoscalingBackground from '../../mixins/AutoscalingBackground';
 import { createEvent } from '../../__test__/TestEventCreator';
 import EventSummary from './Summary';
 import EventActions from './Actions';
+import FoodoraVendors from './FoodoraVendors';
 
 export default {
   name: 'Event',
@@ -27,11 +39,17 @@ export default {
   components: {
     EventSummary,
     EventActions,
+    FoodoraVendors,
   },
   data() {
     return {
       event: createEvent(),
     };
+  },
+  methods: {
+    loadEvent() {
+      this.event = createEvent();
+    },
   },
 };
 </script>
@@ -74,8 +92,44 @@ export default {
   }
 
   &__content {
-    &__actions {
+    display: grid;
+    grid-gap: 1.5em;
+    grid-template-areas:
+      "actions actions"
+      "description agenda"
+      "description vendors";
+    grid-template-columns: 2fr 1fr;
+
+    &__actions, &__description, &__agenda, &__vendors {
       @include card;
+      padding: 0 1em;
+      width: 100%;
+    }
+
+    &__actions {
+      grid-area: actions;
+    }
+
+    &__description {
+      padding: 1em;
+      grid-area: description;
+    }
+
+    &__agenda {
+      grid-area: agenda;
+    }
+
+    &__vendors {
+      grid-area: vendors;
+    }
+
+    &__agenda, &__vendors {
+      h2 {
+        text-align: center;
+        font-weight: 500;
+        padding: 0;
+        margin: .75em 0 .75em 0;
+      }
     }
   }
 }

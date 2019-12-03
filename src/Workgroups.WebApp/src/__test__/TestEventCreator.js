@@ -20,11 +20,12 @@ export function createEvent(group = null, user = null, title = null) {
     imageUrl: faker.image.imageUrl(720, 480),
     location: faker.address.streetName(),
     maxNumberOfAttendees: maxAttendees,
-    attendees: createUsers(Math.min(maxAttendees, Math.floor(Math.random() * 100))).map(user => ({
+    attendees: createUsers(Math.floor(Math.random() * 100)).map((user, index) => ({
       user,
+      id: faker.random.uuid(),
       comment: faker.random.words(Math.floor(Math.random() * 7)),
-      isGoing: Math.random() > .1 ? true : false,
-      isOnWaitlist: false,
+      isGoing: true,
+      isOnWaitlist: maxAttendees == null ? false : index >= maxAttendees,
     })),
   };
 }

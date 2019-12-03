@@ -44,6 +44,7 @@ export default {
 
 <style lang="scss">
 @import './style/variables.scss';
+@import './style/mixins.scss';
 
 body, html{
   background-color: $background_light;
@@ -75,6 +76,10 @@ ul {
 li {
   margin: 0;
   list-style: none;
+}
+
+button {
+  @include button;
 }
 </style>
 
