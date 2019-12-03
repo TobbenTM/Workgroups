@@ -7,11 +7,12 @@
     </h4>
     <div class="actions__attendees">
       <img
-        v-for="attendee in displayableAttendees"
+        v-for="attendee in displayableAttendees.slice(0, Math.min(10, numberOfAttendeesGoing))"
         :key="attendee.id"
         :src="attendee.user.avatarUrl"
         alt=""
       >
+      <span v-if="numberOfAttendeesGoing > 10">+ {{ numberOfAttendeesGoing - 10 }} others</span>
     </div>
     <button class="actions__sign-up" :class="{ 'actions__sign-up--waitlist': !eventHasRoom }">
       <template v-if="eventHasRoom">
@@ -79,11 +80,15 @@ export default {
     flex-grow: 1;
     max-width: 100%;
     overflow: hidden;
+    align-items: center;
+
+    span, img {
+      vertical-align: middle;
+      height: 1.5em;
+    }
 
     img {
-      vertical-align: middle;
       width: 1.5em;
-      height: 1.5em;
       border-radius: 50%;
       overflow: hidden;
       background: rgba(0, 0, 0, .5);
