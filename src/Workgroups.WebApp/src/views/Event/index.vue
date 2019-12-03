@@ -10,7 +10,11 @@
       <event-summary :event="event" class="event__jumbo__summary"/>
     </div>
     <div class="event__content">
-      <event-actions :event="event" class="event__content__actions"/>
+      <event-actions
+        :event="event"
+        class="event__content__actions"
+        v-on:sign-up="signingUp = true"
+      />
       <div class="event__content__description">
         {{ event.description }}
       </div>
@@ -23,6 +27,11 @@
       </div>
       <button style="margin: auto;" @click="loadEvent">Refresh</button>
     </div>
+    <sign-up-modal
+      v-if="signingUp"
+      v-on:close="signingUp = false"
+      :event="event"
+    />
   </div>
 </template>
 
@@ -31,6 +40,7 @@ import AutoscalingBackground from '../../mixins/AutoscalingBackground';
 import { createEvent } from '../../__test__/TestEventCreator';
 import EventSummary from './Summary';
 import EventActions from './Actions';
+import SignUpModal from './SignUpModal';
 import FoodoraVendors from './FoodoraVendors';
 
 export default {
@@ -39,16 +49,24 @@ export default {
   components: {
     EventSummary,
     EventActions,
+    SignUpModal,
     FoodoraVendors,
   },
   data() {
     return {
-      event: createEvent(),
+      event: null,
+      loadingEvent: false,
+      signingUp: false,
     };
+  },
+  created() {
+    this.loadEvent();
   },
   methods: {
     loadEvent() {
+      this.loadingEvent = true;
       this.event = createEvent();
+      this.loadingEvent = false;
     },
   },
 };

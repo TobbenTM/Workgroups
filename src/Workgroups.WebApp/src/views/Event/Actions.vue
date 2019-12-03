@@ -14,7 +14,11 @@
       >
       <span v-if="numberOfAttendeesGoing > 10">+ {{ numberOfAttendeesGoing - 10 }} others</span>
     </div>
-    <button class="actions__sign-up" :class="{ 'actions__sign-up--waitlist': !eventHasRoom }">
+    <button
+      class="actions__sign-up"
+      :class="{ 'actions__sign-up--waitlist': !eventHasRoom }"
+      v-on:click="signUp"
+    >
       <template v-if="eventHasRoom">
         Sign up
       </template>
@@ -46,6 +50,11 @@ export default {
     eventHasRoom() {
       return this.event.maxNumberOfAttendees == null || this.numberOfAttendeesGoing < this.event.maxNumberOfAttendees;
     }
+  },
+  methods: {
+    signUp() {
+      this.$emit('sign-up');
+    },
   },
 };
 </script>
