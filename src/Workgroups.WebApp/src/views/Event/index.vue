@@ -21,7 +21,7 @@
         <h2>Foodora Vendors</h2>
         <foodora-vendors :vendors="event.foodoraVendors"/>
       </div>
-      <button style="margin: auto; margin-top: 3em;" @click="loadEvent">Refresh</button>
+      <button style="margin: auto;" @click="loadEvent">Refresh</button>
     </div>
   </div>
 </template>

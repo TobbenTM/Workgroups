@@ -39,7 +39,7 @@ export default {
         if (toDepth < fromDepth) {
           this.routerTransition = 'slide-down';
         } else {
-          this.routerTransition = 'slide-right';
+          this.routerTransition = 'slide-left';
         }
       } else {
         this.routerTransition = to.matched[0].meta.order < from.matched[0].meta.order ? 'slide-right' : 'slide-left'
