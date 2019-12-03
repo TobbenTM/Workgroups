@@ -34,9 +34,16 @@ export default {
     '$route' (to, from) {
       if (!to.matched[0] || !from.matched[0]) return;
       if (to.matched[0].meta.order === from.matched[0].meta.order) {
-        this.routerTransition = null;
+        const toDepth = to.path.split('/').length;
+        const fromDepth = from.path.split('/').length;
+        if (toDepth < fromDepth) {
+          this.routerTransition = 'slide-down';
+        } else {
+          this.routerTransition = 'slide-right';
+        }
+      } else {
+        this.routerTransition = to.matched[0].meta.order < from.matched[0].meta.order ? 'slide-right' : 'slide-left'
       }
-      this.routerTransition = to.matched[0].meta.order < from.matched[0].meta.order ? 'slide-right' : 'slide-left'
     },
   },
 };
@@ -112,5 +119,16 @@ button {
   opacity: 0;
   -webkit-transform: translate(-50px, 0);
   transform: translate(-50px, 0);
+}
+
+.slide-up-enter, .slide-down-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(0, 50px);
+  transform: translate(0, 50px);
+}
+.slide-up-leave-active, .slide-down-enter {
+  opacity: 0;
+  -webkit-transform: translate(0, -50px);
+  transform: translate(0, -50px);
 }
 </style>

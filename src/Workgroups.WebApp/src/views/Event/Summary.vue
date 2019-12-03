@@ -7,7 +7,7 @@
       </li>
       <li>
         Hosted by: <strong>
-        <router-link :to="{ name: 'group', params: { id: event.hostedBy.id }}">
+        <router-link :to="{ name: 'group', params: { groupId: event.hostedBy.id }}">
           {{ event.hostedBy.name }}
         </router-link></strong>
       </li>
